@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+version = '0.1'
+
+repositories {
+	//mavenLocal()
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots'
+	}
+	mavenCentral()
+}
+
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+ext {
+	smackVersion='4.1.0-alpha1-SNAPSHOT'
+}
+
+dependencies {
+	compile ("org.igniterealtime.smack:smack-java7:$smackVersion") {
+		changing = true
+	}
+	compile ("org.igniterealtime.smack:smack-bosh:$smackVersion") {
+		changing = true
+	}
+	compile ("org.igniterealtime.smack:smack-sasl-provided:$smackVersion") {
+		changing = true
+	}
+}
