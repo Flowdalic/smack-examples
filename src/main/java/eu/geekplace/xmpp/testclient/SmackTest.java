@@ -1,8 +1,10 @@
-package org.geekplace.xmpp.testclient;
+package eu.geekplace.xmpp.testclient;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import org.jivesoftware.smack.SmackConfiguration;
@@ -30,8 +32,9 @@ public abstract class SmackTest<C extends XMPPConnection> {
 	protected abstract void runTestSubclass() throws Exception;
 
 	static void loadProperties() throws IOException {
+		File propertiesFile = findPropertiesFile();
 		Properties properties = new Properties();
-		FileInputStream in = new FileInputStream("properties");
+		FileInputStream in = new FileInputStream(propertiesFile);
 		try {
 			properties.load(in);
 		} finally {
@@ -49,5 +52,20 @@ public abstract class SmackTest<C extends XMPPConnection> {
 		m.setBody(message);
 		connection.sendPacket(m);
 		Thread.sleep(2000);
+	}
+
+	private static File findPropertiesFile() throws IOException {
+		List<String> possibleLocations = new LinkedList<String>();
+		possibleLocations.add("properties");
+		String userHome = System.getProperty("user.home");
+		if (userHome != null) {
+			possibleLocations.add(userHome + "/.config/smack-examples/properties");
+		}
+		for (String possibleLocation : possibleLocations) {
+			File res = new File(possibleLocation);
+			if (res.isFile())
+				return res;
+		}
+		throw new IOException("Could not find properties file: Searched locations");
 	}
 }

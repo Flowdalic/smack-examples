@@ -1,4 +1,4 @@
-package org.geekplace.xmpp.testclient;
+package eu.geekplace.xmpp.testclient;
 
 import java.io.IOException;
 

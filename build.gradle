@@ -1,9 +1,12 @@
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.7
 version = '0.1'
+mainClassName = 'eu.geekplace.xmpp.testclient.Test'
+applicationDefaultJvmArgs = ["-ea"]
 
 repositories {
 	//mavenLocal()

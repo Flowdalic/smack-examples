@@ -1,4 +1,4 @@
-package org.geekplace.xmpp.testclient;
+package eu.geekplace.xmpp.testclient;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -12,7 +12,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.util.TLSUtils;
 
-public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
+public class TCPTest extends SmackTest<XMPPTCPConnection> {
 	
 	static {
 		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
@@ -20,35 +20,28 @@ public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
 	}
 
 	public static void main(String args[]) throws Exception {
-		SmackTest<XMPPTCPConnection> test = new TCPXEP198Test();
+		SmackTest<XMPPTCPConnection> test = new TCPTest();
 		test.runTest();
 	}
 
 	@Override
-	protected void runTestSubclass() throws KeyManagementException, NoSuchAlgorithmException, SmackException, IOException, XMPPException, InterruptedException {
+	protected void runTestSubclass() throws SmackException, IOException,
+			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
+		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
 		ConnectionConfiguration conf = new ConnectionConfiguration(SERV);
 		conf.setSecurityMode(SecurityMode.disabled);
 //		conf.setLegacySessionDisabled(true);
 		conf.setCompressionEnabled(true);
 		TLSUtils.acceptAllCertificates(conf);
 		connection = new XMPPTCPConnection(conf);
-		connection.setUseStramMangement(true);
 
 		connection.connect();
 
 		connection.login(USER, PASS);
 
-		send("Hi, what's up?");
-
-		connection.instantShutdown();
-
-		send("Hi, what's up? I've been just instantly shutdown");
-
-		// Reconnect with xep198
-		connection.connect();
-
-		send("Hi, what's up? I've been just resumed");
+		send( "Hi, what's up?");
 
 		connection.disconnect();
+		System.out.println("Disconnected without Exception");
 	}
 }
