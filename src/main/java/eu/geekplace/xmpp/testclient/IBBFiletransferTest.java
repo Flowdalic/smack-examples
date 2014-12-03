@@ -8,13 +8,14 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.XMPPTCPConnectionConfigurationBuilder;
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smack.util.TLSUtils;
 import org.jivesoftware.smackx.filetransfer.FileTransferListener;
@@ -45,19 +46,23 @@ public class IBBFiletransferTest extends SmackTest<XMPPTCPConnection> {
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
 		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
-		ConnectionConfiguration conf = new ConnectionConfiguration(SERV);
+		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
+		conf.setServiceName(SERV);
+		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);
 		conf.setLegacySessionDisabled(true);
 		conf.setCompressionEnabled(true);
 		TLSUtils.acceptAllCertificates(conf);
+		conf.setResource("sender");
 
-		connection = new XMPPTCPConnection(conf);
+		connection = new XMPPTCPConnection(conf.build());
 		connection.connect();
-		connection.login(USER, PASS, "sender");
+		connection.login();
 		
-		XMPPTCPConnection connection2 = new XMPPTCPConnection(conf);
+		conf.setResource("receiver");
+		XMPPTCPConnection connection2 = new XMPPTCPConnection(conf.build());
 		connection2.connect();
-		connection2.login(USER, PASS, "receiver");
+		connection2.login();
 		
 		FileTransferManager ftm1 = FileTransferManager.getInstanceFor(connection);
 		FileTransferManager ftm2 = FileTransferManager.getInstanceFor(connection2);

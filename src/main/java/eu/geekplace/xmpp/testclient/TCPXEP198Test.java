@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.XMPPTCPConnectionConfigurationBuilder;
 import org.jivesoftware.smack.util.TLSUtils;
 
 public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
@@ -26,17 +27,19 @@ public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
 
 	@Override
 	protected void runTestSubclass() throws KeyManagementException, NoSuchAlgorithmException, SmackException, IOException, XMPPException, InterruptedException {
-		ConnectionConfiguration conf = new ConnectionConfiguration(SERV);
+		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
+		conf.setServiceName(SERV);
+		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);
 //		conf.setLegacySessionDisabled(true);
 		conf.setCompressionEnabled(true);
 		TLSUtils.acceptAllCertificates(conf);
-		connection = new XMPPTCPConnection(conf);
+		connection = new XMPPTCPConnection(conf.build());
 		connection.setUseStreamManagement(true);
 
 		connection.connect();
 
-		connection.login(USER, PASS);
+		connection.login();
 
 		send("Hi, what's up?");
 

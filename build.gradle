@@ -9,7 +9,7 @@ mainClassName = 'eu.geekplace.xmpp.testclient.Test'
 applicationDefaultJvmArgs = ["-ea"]
 
 repositories {
-	//mavenLocal()
+	mavenLocal()
 	maven {
 		url 'https://oss.sonatype.org/content/repositories/snapshots'
 	}
@@ -22,10 +22,16 @@ configurations.all {
 }
 
 ext {
-	smackVersion='4.1.0-alpha1-SNAPSHOT'
+	smackVersion='4.1.0-alpha6'
 }
 
 dependencies {
+	compile ("org.igniterealtime.smack:smack-tcp:$smackVersion") {
+		changing = true
+	}
+	compile ("org.igniterealtime.smack:smack-extensions:$smackVersion") {
+		changing = true
+	}
 	compile ("org.igniterealtime.smack:smack-java7:$smackVersion") {
 		changing = true
 	}
@@ -35,4 +41,5 @@ dependencies {
 	compile ("org.igniterealtime.smack:smack-sasl-provided:$smackVersion") {
 		changing = true
 	}
+	compile 'org.jxmpp:jxmpp-stringprep-libidn:0.4.0'
 }

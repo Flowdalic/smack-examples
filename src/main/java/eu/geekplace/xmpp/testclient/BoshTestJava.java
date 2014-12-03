@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.bosh.BOSHConfiguration;
 import org.jivesoftware.smack.bosh.XMPPBOSHConnection;
 
 public class BoshTestJava extends SmackTest<XMPPBOSHConnection> {
@@ -22,12 +23,14 @@ public class BoshTestJava extends SmackTest<XMPPBOSHConnection> {
 	@Override
 	protected void runTestSubclass()  throws SmackException, IOException,
 			XMPPException, InterruptedException {
-		connection = new XMPPBOSHConnection(false, SmackTest.BOSH_SERV,
-				7070, "/http-bind/", SmackTest.SERV);
+		BOSHConfiguration conf = BOSHConfiguration.builder().setUsernameAndPassword(USER, PASS)
+				.setFile("/http-bind/").setHost(BOSH_SERV).setPort(7070).setServiceName(SERV)
+				.build();
+		connection = new XMPPBOSHConnection(conf);
 
 		connection.connect();
 
-		connection.login(SmackTest.USER, SmackTest.PASS);
+		connection.login();
 
 		send("Hi, what's up?");
 
