@@ -19,12 +19,19 @@ public abstract class SmackTest<C extends XMPPConnection> {
 	public static String PASS;
 	public static String BOSH_SERV;
 	public static String OTHER_ENTITY;
+	public static boolean DEBUG;
 
 	protected C connection;
+
+	static {
+		// JUL Debugger will not print any information until configured to print log messages of level FINE
+		SmackConfiguration.addDisabledSmackClass("org.jivesoftware.smack.debugger.JulDebugger");
+	}
 
 	protected final void runTest() throws Exception {
 		loadProperties();
 		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
+		SmackConfiguration.DEBUG_ENABLED = DEBUG;
 		runTestSubclass();
 		System.out.println("Test run without Exception");
 	}
@@ -42,6 +49,10 @@ public abstract class SmackTest<C extends XMPPConnection> {
 		PASS = properties.getProperty("pass");
 		BOSH_SERV = properties.getProperty("boshserv");
 		OTHER_ENTITY = properties.getProperty("otherentity");
+		String debug = properties.getProperty("debug");
+		if (debug != null) {
+			DEBUG = Boolean.valueOf(debug);
+		}
 	}
 
 	protected void send(String message) throws NotConnectedException, InterruptedException {
