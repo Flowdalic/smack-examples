@@ -34,11 +34,8 @@ public abstract class SmackTest<C extends XMPPConnection> {
 	static void loadProperties() throws IOException {
 		File propertiesFile = findPropertiesFile();
 		Properties properties = new Properties();
-		FileInputStream in = new FileInputStream(propertiesFile);
-		try {
+		try (FileInputStream in = new FileInputStream(propertiesFile)) {
 			properties.load(in);
-		} finally {
-			in.close();
 		}
 		SERV = properties.getProperty("serv");
 		USER = properties.getProperty("user");
