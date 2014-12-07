@@ -28,7 +28,6 @@ public class TCPTest extends SmackTest<XMPPTCPConnection> {
 	@Override
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
-		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
 		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
