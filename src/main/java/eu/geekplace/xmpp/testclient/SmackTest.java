@@ -18,7 +18,7 @@ public abstract class SmackTest<C extends XMPPConnection> {
 	public static String USER;
 	public static String PASS;
 	public static String BOSH_SERV;
-
+	public static String OTHER_ENTITY;
 
 	protected C connection;
 
@@ -44,10 +44,11 @@ public abstract class SmackTest<C extends XMPPConnection> {
 		USER = properties.getProperty("user");
 		PASS = properties.getProperty("pass");
 		BOSH_SERV = properties.getProperty("boshserv");
+		OTHER_ENTITY = properties.getProperty("otherentity");
 	}
 
 	protected void send(String message) throws NotConnectedException, InterruptedException {
-		Message m = new Message("flo@freakempire.de");
+		Message m = new Message(OTHER_ENTITY);
 		m.setType(Type.chat);
 		m.setBody(message);
 		connection.sendPacket(m);
