@@ -13,7 +13,6 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
-import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.XMPPTCPConnectionConfigurationBuilder;
 import org.jivesoftware.smack.util.TLSUtils;
 import org.jivesoftware.smackx.filetransfer.FileTransferListener;
 import org.jivesoftware.smackx.filetransfer.FileTransferManager;
@@ -42,7 +41,7 @@ public class FiletransferTest extends SmackTest<XMPPTCPConnection> {
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
 		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
-		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
+		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);

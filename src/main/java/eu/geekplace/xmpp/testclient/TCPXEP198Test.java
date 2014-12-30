@@ -10,7 +10,6 @@ import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
-import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.XMPPTCPConnectionConfigurationBuilder;
 import org.jivesoftware.smack.util.TLSUtils;
 
 public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
@@ -27,7 +26,7 @@ public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
 
 	@Override
 	protected void runTestSubclass() throws KeyManagementException, NoSuchAlgorithmException, SmackException, IOException, XMPPException, InterruptedException {
-		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
+		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);

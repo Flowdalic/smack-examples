@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
@@ -12,7 +11,6 @@ import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
-import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.XMPPTCPConnectionConfigurationBuilder;
 import org.jivesoftware.smack.util.TLSUtils;
 
 public class TCPSASLProvidedTest extends SmackTest<XMPPTCPConnection> {
@@ -33,7 +31,7 @@ public class TCPSASLProvidedTest extends SmackTest<XMPPTCPConnection> {
 	protected void runTestSubclass()throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
 		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
-		XMPPTCPConnectionConfigurationBuilder conf = XMPPTCPConnectionConfiguration.builder();
+		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);
