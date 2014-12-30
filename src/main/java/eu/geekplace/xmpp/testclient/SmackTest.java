@@ -26,6 +26,8 @@ public abstract class SmackTest<C extends XMPPConnection> {
 	static {
 		// JUL Debugger will not print any information until configured to print log messages of level FINE
 		SmackConfiguration.addDisabledSmackClass("org.jivesoftware.smack.debugger.JulDebugger");
+		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
+		SmackConfiguration.DEBUG_ENABLED = true;
 	}
 
 	protected final void runTest() throws Exception {

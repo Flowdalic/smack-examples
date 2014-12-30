@@ -19,19 +19,12 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smack.util.TLSUtils;
 import org.jivesoftware.smackx.filetransfer.FileTransferListener;
 import org.jivesoftware.smackx.filetransfer.FileTransferManager;
-import org.jivesoftware.smackx.filetransfer.FileTransferNegotiator;
 import org.jivesoftware.smackx.filetransfer.FileTransferRequest;
 import org.jivesoftware.smackx.filetransfer.IncomingFileTransfer;
 import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 import org.jxmpp.util.XmppStringUtils;
 
 public class IBBFiletransferTest extends SmackTest<XMPPTCPConnection> {
-	
-	static {
-		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
-		SmackConfiguration.DEBUG_ENABLED = true;
-		FileTransferNegotiator.IBB_ONLY = true;
-	}
 
 	public static void main(String args[]) throws Exception {
 		SmackTest<XMPPTCPConnection> test = new IBBFiletransferTest();

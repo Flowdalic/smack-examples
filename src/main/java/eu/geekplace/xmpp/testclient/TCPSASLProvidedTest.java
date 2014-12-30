@@ -16,10 +16,8 @@ import org.jivesoftware.smack.util.TLSUtils;
 public class TCPSASLProvidedTest extends SmackTest<XMPPTCPConnection> {
 	
 	static {
-		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
 		// Disable JavaX SASL mechs, so that the smack provided ones are used
 		SASLAuthentication.unregisterSASLMechanism("org.jivesoftware.smack.sasl.javax.SASLDigestMD5Mechanism");
-		SmackConfiguration.DEBUG_ENABLED = true;
 	}
 
 	public static void main(String args[]) throws Exception {

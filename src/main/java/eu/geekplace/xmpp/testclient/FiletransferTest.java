@@ -22,12 +22,6 @@ import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 import org.jxmpp.util.XmppStringUtils;
 
 public class FiletransferTest extends SmackTest<XMPPTCPConnection> {
-	
-	static {
-		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
-		SmackConfiguration.DEBUG_ENABLED = true;
-		
-	}
 
 	public static void main(String args[]) throws Exception {
 		SmackTest<XMPPTCPConnection> test = new FiletransferTest();

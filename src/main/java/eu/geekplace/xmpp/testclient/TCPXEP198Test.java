@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
@@ -13,11 +12,6 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smack.util.TLSUtils;
 
 public class TCPXEP198Test extends SmackTest<XMPPTCPConnection> {
-	
-	static {
-		SmackConfiguration.setDefaultPacketReplyTimeout(1000*60*5);
-		SmackConfiguration.DEBUG_ENABLED = true;
-	}
 
 	public static void main(String args[]) throws Exception {
 		SmackTest<XMPPTCPConnection> test = new TCPXEP198Test();
