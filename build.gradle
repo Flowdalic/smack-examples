@@ -22,7 +22,7 @@ configurations.all {
 }
 
 ext {
-	smackVersion='4.1.0-alpha7-SNAPSHOT'
+	smackVersion='4.1.0-rc3-SNAPSHOT'
 }
 
 dependencies {

@@ -8,7 +8,6 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.XMPPException;
@@ -37,12 +36,10 @@ public class IBBFiletransferTest extends SmackTest<XMPPTCPConnection> {
 	@Override
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
-		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
 		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);
-		conf.setLegacySessionDisabled(true);
 		conf.setCompressionEnabled(true);
 		TLSUtils.acceptAllCertificates(conf);
 		conf.setResource("sender");

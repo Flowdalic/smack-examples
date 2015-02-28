@@ -6,9 +6,9 @@ import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
+import org.jivesoftware.smack.XMPPConnection.FromMode;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPException.XMPPErrorException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
@@ -34,22 +34,22 @@ public class FiletransferTest extends SmackTest<XMPPTCPConnection> {
 	@Override
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
-		System.out.println("Using Smack Version: " + SmackConfiguration.getVersion());
 		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
 		conf.setSecurityMode(SecurityMode.disabled);
-		conf.setLegacySessionDisabled(true);
 		conf.setCompressionEnabled(true);
 		TLSUtils.acceptAllCertificates(conf);
 		conf.setResource("sender");
 
 		connection = new XMPPTCPConnection(conf.build());
+		connection.setFromMode(FromMode.USER);
 		connection.connect();
 		connection.login();
 		
 		conf.setResource("receiver");
 		XMPPTCPConnection connection2 = new XMPPTCPConnection(conf.build());
+		connection2.setFromMode(FromMode.USER);
 		connection2.connect();
 		connection2.login();
 		
@@ -81,9 +81,9 @@ public class FiletransferTest extends SmackTest<XMPPTCPConnection> {
 				System.out.println("Filetransfer status: " + oft.getStatus() + ". Progress: " + oft.getProgress());
 				break;
 			}
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 		}
-		
+
 		connection.disconnect();
 		connection2.disconnect();
 		Thread.sleep(1000);
