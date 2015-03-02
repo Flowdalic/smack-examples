@@ -18,6 +18,7 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smack.util.TLSUtils;
 import org.jivesoftware.smackx.filetransfer.FileTransferListener;
 import org.jivesoftware.smackx.filetransfer.FileTransferManager;
+import org.jivesoftware.smackx.filetransfer.FileTransferNegotiator;
 import org.jivesoftware.smackx.filetransfer.FileTransferRequest;
 import org.jivesoftware.smackx.filetransfer.IncomingFileTransfer;
 import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
@@ -36,6 +37,7 @@ public class IBBFiletransferTest extends SmackTest<XMPPTCPConnection> {
 	@Override
 	protected void runTestSubclass() throws SmackException, IOException,
 			XMPPException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
+		FileTransferNegotiator.IBB_ONLY = true;
 		XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
 		conf.setServiceName(SERV);
 		conf.setUsernameAndPassword(USER, PASS);
