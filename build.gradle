@@ -9,10 +9,6 @@ mainClassName = 'eu.geekplace.xmpp.testclient.Test'
 applicationDefaultJvmArgs = ["-ea"]
 
 repositories {
-	mavenLocal()
-	maven {
-		url 'https://oss.sonatype.org/content/repositories/snapshots'
-	}
 	mavenCentral()
 }
 
@@ -22,7 +18,7 @@ configurations.all {
 }
 
 ext {
-	smackVersion='4.1.0-rc3-SNAPSHOT'
+	smackVersion='4.1.0'
 }
 
 dependencies {
